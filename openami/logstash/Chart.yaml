@@ -1,0 +1,35 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: logstash
+      image: ghcr.io/devthefuture-org/containers/logstash:9.1.2-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r50
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 9.1.2
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Logstash is an open source data processing engine. It ingests data from
+  multiple sources, processes it, and sends the output to final destination in real-time.
+  It is a core component of the ELK stack.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/logstash/img/logstash-stack-220x234.png
+keywords:
+- logstash
+- logging
+- elk
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: logstash
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/logstash
+version: 7.0.12

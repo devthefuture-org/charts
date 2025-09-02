@@ -1,0 +1,33 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: whereabouts
+      image: ghcr.io/devthefuture-org/containers/whereabouts:0.9.2-debian-12-r2
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 0.9.2
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Whereabouts is a CNI IPAM plugin for Kubernetes clusters. It dynamically
+  assigns IP addresses cluster-wide. Features both IPv4 and IPv6 addressing.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/whereabouts/img/whereabouts-stack-220x234.png
+keywords:
+- whereabouts
+- cni
+- kubernetes
+- networking
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: whereabouts
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/whereabouts
+version: 1.2.20

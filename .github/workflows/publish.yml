@@ -1,0 +1,132 @@
+name: Charts Publish (OCI to GHCR)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'openami/**'
+      - '.github/workflows/publish.yml'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  publish:
+    name: Package & Push changed charts to GHCR
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Setup Helm
+        shell: bash
+        run: |
+          set -euo pipefail
+          HELM_TARBALL="helm-v3.14.4-linux-amd64.tar.gz"
+          curl -sSL -O "https://get.helm.sh/${HELM_TARBALL}"
+          sudo tar -C /usr/local/bin -xzvf "${HELM_TARBALL}" --strip-components=1 linux-amd64/helm
+          helm version
+
+      - name: Login to GHCR (Helm OCI)
+        env:
+          GH_USER: ${{ github.actor }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          helm registry login ghcr.io -u "${GH_USER}" -p "${GH_TOKEN}"
+
+      - name: Determine changed charts
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Determine changed chart directories (openami/<chart>)
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            CHANGED="$(git diff --name-only HEAD~1 HEAD | grep -E '^openami/[^/]+/' | cut -d/ -f1-2 | sort -u || true)"
+          else
+            CHANGED=""
+          fi
+
+          # Fallback to all charts if diff not available (e.g., initial push)
+          if [[ -z "${CHANGED}" ]]; then
+            CHANGED="$(ls -d openami/*/ 2>/dev/null | sed 's#/$##' || true)"
+          fi
+
+          if [[ -z "${CHANGED}" ]]; then
+            echo "No charts detected under openami/. Nothing to publish."
+            echo "dirs=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          echo "Changed chart directories:"
+          echo "${CHANGED}"
+          echo "dirs=${CHANGED}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify version bump for changed charts
+        if: steps.changes.outputs.dirs != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          status=0
+          for dir in ${{ steps.changes.outputs.dirs }}; do
+            if git rev-parse HEAD~1 >/dev/null 2>&1; then
+              if ! git diff HEAD~1..HEAD -- "${dir}/Chart.yaml" | grep -qE '^\+version:'; then
+                echo "::error file=${dir}/Chart.yaml::Detected changes in ${dir} without Chart.yaml version bump"
+                status=1
+              else
+                echo "Version bump detected for ${dir}"
+              fi
+            else
+              echo "No previous commit to compare for ${dir}; skipping version bump check"
+            fi
+          done
+          exit $status
+
+      - name: Build dependencies (common from GHCR) and lint
+        if: steps.changes.outputs.dirs != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          for dir in ${{ steps.changes.outputs.dirs }}; do
+            if [[ -f "${dir}/Chart.yaml" ]]; then
+              echo "::group::helm dependency update ${dir}"
+              helm dependency update "${dir}" || true
+              echo "::endgroup::"
+
+              echo "::group::helm lint ${dir}"
+              helm lint "${dir}"
+              echo "::endgroup::"
+            fi
+          done
+
+      - name: Package and Push to GHCR (OCI)
+        if: steps.changes.outputs.dirs != ''
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          for dir in ${{ steps.changes.outputs.dirs }}; do
+            if [[ -f "${dir}/Chart.yaml" ]]; then
+              echo "::group::Package ${dir}"
+              helm package "${dir}" -d dist
+              echo "::endgroup::"
+            fi
+          done
+
+          shopt -s nullglob
+          for pkg in dist/*.tgz; do
+            chart_name="$(basename "$pkg" .tgz | sed -E 's/-[0-9].*$//')"
+            echo "::group::Push $pkg"
+            helm push "$pkg" oci://ghcr.io/devthefuture-org/charts
+            echo "::endgroup::"
+          done
+
+      - name: Summary
+        shell: bash
+        run: |
+          echo "Published chart packages to oci://ghcr.io/devthefuture-org/charts"

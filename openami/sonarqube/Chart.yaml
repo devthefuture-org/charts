@@ -1,0 +1,42 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: jmx-exporter
+      image: ghcr.io/devthefuture-org/containers/jmx-exporter:1.4.0-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+    - name: sonarqube
+      image: ghcr.io/devthefuture-org/containers/sonarqube:25.8.0-debian-12-r2
+  licenses: Apache-2.0
+  tanzuCategory: application
+apiVersion: v2
+appVersion: 25.8.0
+dependencies:
+- condition: postgresql.enabled
+  name: postgresql
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 16.x.x
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: SonarQube(TM) is an open source quality management platform that analyzes
+  and measures code's technical quality. It enables developers to detect code issues,
+  vulnerabilities, and bugs in early stages.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/sonarqube/img/sonarqube-stack-220x234.png
+keywords:
+- sonarqube
+- code-quality
+- code-review
+- static-analysis
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: sonarqube
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/sonarqube
+version: 8.1.18

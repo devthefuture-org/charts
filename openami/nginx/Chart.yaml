@@ -1,0 +1,39 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: git
+      image: ghcr.io/devthefuture-org/containers/git:2.51.0-debian-12-r0
+    - name: nginx
+      image: ghcr.io/devthefuture-org/containers/nginx:1.29.1-debian-12-r0
+    - name: nginx-exporter
+      image: ghcr.io/devthefuture-org/containers/nginx-exporter:1.4.2-debian-12-r9
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 1.29.1
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: NGINX Open Source is a web server that can be also used as a reverse
+  proxy, load balancer, and HTTP cache. Recommended for high-demanding sites due to
+  its ability to provide faster content.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/nginx/img/nginx-stack-220x234.png
+keywords:
+- nginx
+- http
+- web
+- www
+- reverse proxy
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: nginx
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/nginx
+version: 22.0.0

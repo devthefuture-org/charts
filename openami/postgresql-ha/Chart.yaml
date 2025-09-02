@@ -1,0 +1,45 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+    - name: pgpool
+      image: ghcr.io/devthefuture-org/containers/pgpool:4.6.3-debian-12-r0
+    - name: postgres-exporter
+      image: ghcr.io/devthefuture-org/containers/postgres-exporter:0.17.1-debian-12-r16
+    - name: postgresql-repmgr
+      image: ghcr.io/devthefuture-org/containers/postgresql-repmgr:17.6.0-debian-12-r2
+  licenses: Apache-2.0
+  tanzuCategory: service
+apiVersion: v2
+appVersion: 17.6.0
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: This PostgreSQL cluster solution includes the PostgreSQL replication
+  manager, an open-source tool for managing replication and failover on PostgreSQL
+  clusters.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/postgresql/img/postgresql-stack-220x234.png
+keywords:
+- postgresql
+- repmgr
+- pgpool
+- postgres
+- database
+- sql
+- replication
+- cluster
+- high availability
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: postgresql-ha
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/postgresql-ha
+version: 16.3.3

@@ -1,0 +1,32 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: cadvisor
+      image: ghcr.io/devthefuture-org/containers/cadvisor:0.53.0-debian-12-r9
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 0.53.0
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: cAdvisor (Container Advisor) is an open-source tool by Google for monitoring
+  containers, collecting metrics like CPU, memory, and network usage.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/cadvisor/img/cadvisor-stack-220x234.png
+keywords:
+- cadvisor
+- monitoring
+- kubernetes
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: cadvisor
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/cadvisor
+version: 0.1.14

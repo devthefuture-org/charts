@@ -1,0 +1,45 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: dremio
+      image: ghcr.io/devthefuture-org/containers/dremio:26.0.0-debian-12-r5
+    - name: jmx-exporter
+      image: ghcr.io/devthefuture-org/containers/jmx-exporter:1.4.0-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+  licenses: Apache-2.0
+  tanzuCategory: application
+apiVersion: v2
+appVersion: 26.0.0
+dependencies:
+- condition: minio.enabled
+  name: minio
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 17.x.x
+- condition: zookeeper.enabled
+  name: zookeeper
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 13.x.x
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Dremio is an open-source self-service data access tool that provides
+  high-performance queries for interactive analytics on data lakes.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/dremio/img/dremio-stack-220x234.png
+keywords:
+- dremio
+- data-lake
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: dremio
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/dremio
+- https://github.com/bitnami/containers/tree/main/bitnami/dremio
+- https://github.com/dremio/dremio-oss
+version: 3.0.14

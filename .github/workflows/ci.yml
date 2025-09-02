@@ -1,0 +1,64 @@
+name: Charts CI
+
+on:
+  pull_request:
+    paths:
+      - 'openami/**'
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint changed charts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Helm
+        shell: bash
+        run: |
+          set -euo pipefail
+          HELM_TARBALL="helm-v3.14.4-linux-amd64.tar.gz"
+          curl -sSL -O "https://get.helm.sh/${HELM_TARBALL}"
+          sudo tar -C /usr/local/bin -xzvf "${HELM_TARBALL}" --strip-components=1 linux-amd64/helm
+          helm version
+
+      - name: Determine changed charts
+        id: changes
+        shell: bash
+        run: |
+          set -euo pipefail
+          # Try to diff against the PR base branch. If that fails, fallback to all charts.
+          BASE_REF="${{ github.base_ref }}"
+          if [[ -n "${BASE_REF}" ]]; then
+            git fetch --no-tags --depth=1 origin "${BASE_REF}"
+            CHANGED=$(git diff --name-only "origin/${BASE_REF}"...HEAD | grep -E '^openami/[^/]+/' | cut -d/ -f1-2 | sort -u || true)
+          else
+            CHANGED=""
+          fi
+
+          if [[ -z "${CHANGED}" ]]; then
+            CHANGED=$(ls -d openami/*/ 2>/dev/null | sed 's#/$##' || true)
+          fi
+
+          echo "Changed chart directories:"
+          echo "${CHANGED}"
+
+          # Expose as output (space-delimited)
+          echo "dirs=${CHANGED}" >> "$GITHUB_OUTPUT"
+
+      - name: Helm lint
+        shell: bash
+        run: |
+          set -euo pipefail
+          status=0
+          for dir in ${{ steps.changes.outputs.dirs }}; do
+            if [[ -f "$dir/Chart.yaml" ]]; then
+              echo "::group::helm lint $dir"
+              helm lint "$dir" || status=$?
+              echo "::endgroup::"
+            fi
+          done
+          exit $status

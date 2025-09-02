@@ -1,0 +1,43 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: appsmith
+      image: ghcr.io/devthefuture-org/containers/appsmith:1.85.0-debian-12-r0
+    - name: haproxy
+      image: ghcr.io/devthefuture-org/containers/haproxy:3.2.4-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r50
+  licenses: Apache-2.0
+  tanzuCategory: application
+apiVersion: v2
+appVersion: 1.85.0
+dependencies:
+- condition: redis.enabled
+  name: redis
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 22.x.x
+- condition: mongodb.enabled
+  name: mongodb
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 16.x.x
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Appsmith is an open source platform for building and maintaining internal
+  tools, such as custom dashboards, admin panels or CRUD apps.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/appsmith/img/appsmith-stack-220x234.png
+keywords:
+- development
+- dashboards
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: appsmith
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/appsmith
+version: 7.0.4

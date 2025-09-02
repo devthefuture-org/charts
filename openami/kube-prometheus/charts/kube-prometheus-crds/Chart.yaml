@@ -1,0 +1,25 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  category: Analytics
+  licenses: Apache-2.0
+apiVersion: v2
+appVersion: 0.1.0
+dependencies:
+description: Prometheus Operator provides easy monitoring definitions for Kubernetes services and deployment and management of Prometheus instances.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/prometheus-operator/img/prometheus-operator-stack-220x234.png
+keywords:
+- prometheus
+- alertmanager
+- operator
+- monitoring
+kubeVersion: '>= 1.16.0-0'
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: kube-prometheus-crds
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/kube-prometheus/charts/kube-prometheus-crds
+version: 0.1.0

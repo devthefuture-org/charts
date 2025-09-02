@@ -1,0 +1,36 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: clickhouse
+      image: ghcr.io/devthefuture-org/containers/clickhouse:25.7.5-debian-12-r0
+    - name: clickhouse-keeper
+      image: ghcr.io/devthefuture-org/containers/clickhouse-keeper:25.7.5-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+  licenses: Apache-2.0
+  tanzuCategory: service
+apiVersion: v2
+appVersion: 25.7.5
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: ClickHouse is an open-source column-oriented OLAP database management
+  system. Use it to boost your database performance while providing linear scalability
+  and hardware efficiency.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/clickhouse/img/clickhouse-stack-220x234.png
+keywords:
+- database
+- sharding
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: clickhouse
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/clickhouse
+version: 9.4.5

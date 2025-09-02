@@ -1,0 +1,39 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r50
+    - name: vault
+      image: ghcr.io/devthefuture-org/containers/vault:1.20.2-debian-12-r2
+    - name: vault-csi-provider
+      image: ghcr.io/devthefuture-org/containers/vault-csi-provider:1.5.1-debian-12-r4
+    - name: vault-k8s
+      image: ghcr.io/devthefuture-org/containers/vault-k8s:1.7.0-debian-12-r4
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 1.20.2
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Vault is a tool for securely managing and accessing secrets using a unified
+  interface. Features secure storage, dynamic secrets, data encryption and revocation.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/vault/img/vault-stack-220x234.png
+keywords:
+- security
+- secrets
+- injection
+- vault
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: vault
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/vault
+version: 1.9.1

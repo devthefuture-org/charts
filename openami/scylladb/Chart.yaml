@@ -1,0 +1,35 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+    - name: scylladb
+      image: ghcr.io/devthefuture-org/containers/scylladb:2025.2.2-debian-12-r2
+  licenses: Apache-2.0
+  tanzuCategory: service
+apiVersion: v2
+appVersion: 2025.2.2
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: ScyllaDB is an open-source, distributed NoSQL wide-column data store.
+  Written in C++, it is designed for high throughput and low latency, compatible with
+  Apache Cassandra.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/scylladb/img/scylladb-stack-220x234.png
+keywords:
+- scylladb
+- database
+- nosql
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: scylladb
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/scylladb
+version: 5.0.7

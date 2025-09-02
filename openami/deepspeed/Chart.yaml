@@ -1,0 +1,40 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: deepspeed
+      image: ghcr.io/devthefuture-org/containers/deepspeed:0.17.5-debian-12-r0
+    - name: git
+      image: ghcr.io/devthefuture-org/containers/git:2.51.0-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+  licenses: Apache-2.0
+  tanzuCategory: clusterUtility
+apiVersion: v2
+appVersion: 0.17.5
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: DeepSpeed is deep learning software suite for empowering ChatGPT-like
+  model training. Features dense or sparse model inference, high throughput and high
+  compression.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/deepspeed/img/deepspeed-stack-220x234.png
+keywords:
+- deepspeed
+- pytorch
+- python
+- machine
+- learning
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: deepspeed
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/deepspeed
+- https://github.com/devthefuture-org/charts/tree/main/openami/pytorch
+version: 2.3.51

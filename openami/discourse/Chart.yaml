@@ -1,0 +1,46 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: discourse
+      image: ghcr.io/devthefuture-org/containers/discourse:3.5.0-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+  licenses: Apache-2.0
+  tanzuCategory: application
+apiVersion: v2
+appVersion: 3.5.0
+dependencies:
+- condition: redis.enabled
+  name: redis
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 22.X.X
+- condition: postgresql.enabled
+  name: postgresql
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 16.X.X
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Discourse is an open source discussion platform with built-in moderation
+  and governance systems that let discussion communities protect themselves from bad
+  actors even without official moderators.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/discourse/img/discourse-stack-220x234.png
+keywords:
+- community
+- forum
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+- email: username.taken@gmail.com
+  name: paulczar
+- email: preteluca@gmail.com
+  name: lucaprete
+name: discourse
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/discourse
+version: 17.0.2

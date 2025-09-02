@@ -1,0 +1,38 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: elasticsearch
+      image: ghcr.io/devthefuture-org/containers/elasticsearch:9.1.2-debian-12-r0
+    - name: elasticsearch-exporter
+      image: ghcr.io/devthefuture-org/containers/elasticsearch-exporter:1.9.0-debian-12-r16
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r50
+  licenses: Apache-2.0
+  tanzuCategory: service
+apiVersion: v2
+appVersion: 9.1.2
+dependencies:
+- condition: global.kibanaEnabled
+  name: kibana
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 12.x.x
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Elasticsearch is a distributed search and analytics engine. It is used
+  for web search, log monitoring, and real-time analytics. Ideal for Big Data applications.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/elasticsearch/img/elasticsearch-stack-220x234.png
+keywords:
+- elasticsearch
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: elasticsearch
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/elasticsearch
+version: 22.1.7

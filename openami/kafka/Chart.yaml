@@ -1,0 +1,40 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: jmx-exporter
+      image: ghcr.io/devthefuture-org/containers/jmx-exporter:1.4.0-debian-12-r0
+    - name: kafka
+      image: ghcr.io/devthefuture-org/containers/kafka:4.0.0-debian-12-r10
+    - name: kubectl
+      image: ghcr.io/devthefuture-org/containers/kubectl:1.33.4-debian-12-r0
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r51
+  licenses: Apache-2.0
+  tanzuCategory: service
+apiVersion: v2
+appVersion: 4.0.0
+dependencies:
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Apache Kafka is a distributed streaming platform designed to build real-time
+  pipelines and can be used as a message broker or as a replacement for a log aggregation
+  solution for big data applications.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/kafka/img/kafka-stack-220x234.png
+keywords:
+- kafka
+- streaming
+- producer
+- consumer
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: kafka
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/kafka
+version: 32.4.4

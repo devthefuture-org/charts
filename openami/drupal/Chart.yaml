@@ -1,0 +1,45 @@
+# Copyright Broadcom, Inc. All Rights Reserved.
+# SPDX-License-Identifier: APACHE-2.0
+
+annotations:
+  images: |
+    - name: apache-exporter
+      image: ghcr.io/devthefuture-org/containers/apache-exporter:1.0.10-debian-12-r55
+    - name: drupal
+      image: ghcr.io/devthefuture-org/containers/drupal:11.2.3-debian-12-r1
+    - name: os-shell
+      image: ghcr.io/devthefuture-org/containers/os-shell:12-debian-12-r50
+  licenses: Apache-2.0
+  tanzuCategory: application
+apiVersion: v2
+appVersion: 11.2.3
+dependencies:
+- condition: mariadb.enabled
+  name: mariadb
+  repository: oci://ghcr.io/devthefuture-org/charts
+  version: 22.x.x
+- name: common
+  repository: oci://ghcr.io/devthefuture-org/charts
+  tags:
+  - bitnami-common
+  version: 2.x.x
+description: Drupal is one of the most versatile open source content management systems
+  in the world. It is pre-configured with the Ctools and Views modules, Drush and
+  Let's Encrypt auto-configuration support.
+home: https://github.com/devthefuture-org
+icon: https://dyltqmyl993wv.cloudfront.net/assets/stacks/drupal/img/drupal-stack-220x234.png
+keywords:
+- drupal
+- cms
+- blog
+- http
+- web
+- application
+- php
+maintainers:
+- name: DevTheFuture
+  url: https://github.com/devthefuture-org/charts
+name: drupal
+sources:
+- https://github.com/devthefuture-org/charts/tree/main/openami/drupal
+version: 23.0.1
